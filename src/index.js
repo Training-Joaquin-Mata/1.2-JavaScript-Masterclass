@@ -60,31 +60,54 @@ import '../assets/css/style.css';
 //-----------------------Imperative vs Declarative Programming
 
 
-  const items = Object.freeze([
-        { id: '🍔', name: 'Super Burger', price: 399 },
-        { id: '🍟', name: 'Jumbo Fries', price: 199 },
-        { id: '🥤', name: 'Big Slurp', price: 299 },
-      ]);
-      console.log(items);
-const itemNamesImperative=[];
+//   const items = Object.freeze([
+//         { id: '🍔', name: 'Super Burger', price: 399 },
+//         { id: '🍟', name: 'Jumbo Fries', price: 199 },
+//         { id: '🥤', name: 'Big Slurp', price: 299 },
+//       ]);
+//       console.log(items);
+// const itemNamesImperative=[];
 
-for(let i=0; i<items.length; i++){
-  const item= items[i];
-  itemNamesImperative.push(item.name);
-}
-console.log(itemNamesImperative);
+// for(let i=0; i<items.length; i++){
+//   const item= items[i];
+//   itemNamesImperative.push(item.name);
+// }
+// console.log(itemNamesImperative);
 
-const itemNamesDeclarative = items.map(function(item){ 
-return item.name;
-});
+// const itemNamesDeclarative = items.map(function(item){ 
+// return item.name;
+// });
 
-console.log(itemNamesDeclarative);
+// console.log(itemNamesDeclarative);
 
-const priceChain = items.map(function(item){ 
-  return item.price;
-  }).reduce(function(prev, next){
-    return prev + next;
-  });
+// const priceChain = items.map(function(item){ 
+//   return item.price;
+//   }).reduce(function(prev, next){
+//     return prev + next;
+//   });
 
-  console.log(priceChain);
+//   console.log(priceChain);
   
+
+//-----------------------Lambda Expressions vs Anonymous Functions
+
+const items = Object.freeze([
+          { id: '🍔', name: 'Super Burger', price: 399 },
+          { id: '🍟', name: 'Jumbo Fries', price: 199 },
+          { id: '🥤', name: 'Big Slurp', price: 299 },
+        ]);
+        console.log(items);
+//function declaration
+function getItemName(item){
+  return item.name;
+}
+console.log(items.map(getItemName));
+
+//Anonymus function
+console.log(items.map(function getItemName(item){
+  return item.name;
+}));
+
+//Lambda Expression
+const getNameExp= (item)=>item.name;
+console.log(items.map(getNameExp));
