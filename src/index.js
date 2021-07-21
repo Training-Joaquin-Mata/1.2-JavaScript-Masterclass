@@ -114,23 +114,41 @@ import '../assets/css/style.css';
 
 
 //-----------------------Pure Functions and Referential Transparency
+// const items = Object.freeze([
+//   { id: '🍔', name: 'Super Burger', price: 399 },
+//   { id: '🍟', name: 'Jumbo Fries', price: 199 },
+//   { id: '🥤', name: 'Big Slurp', price: 299 },
+// ]);
+// console.log(items);
+
+// //Pure Function 
+// //1. Referencial transparency -A function only depends on its input (si ingresas la misma entrada, la salida no debe cambiar)
+// //2. Side-effect free (console logs, reasign a variable, mutate an array or object, injecting things into the DOM)
+// const  getTotalImpure=()=>{
+// console.log(items.reduce((x, y)=> x +y.price, 0 ));
+// };
+
+// getTotalImpure();
+
+// const totalPure=(v)=> v.reduce((x, y)=> x +y.price, 0);
+// document.querySelector('#app').innerHTML= totalPure(items);
+
+// console.log(totalPure(items));
+
+//-----------------------Function Closures
 const items = Object.freeze([
   { id: '🍔', name: 'Super Burger', price: 399 },
   { id: '🍟', name: 'Jumbo Fries', price: 199 },
   { id: '🥤', name: 'Big Slurp', price: 299 },
 ]);
+
+const getNameFromId = (id)=> (item)=> item.find((item) => item.id === id).name;
+const getFries = getNameFromId('🍟');
+console.log(getFries(items));
 console.log(items);
 
-//Pure Function 
-//1. Referencial transparency -A function only depends on its input (si ingresas la misma entrada, la salida no debe cambiar)
-//2. Side-effect free (console logs, reasign a variable, mutate an array or object, injecting things into the DOM)
-const  getTotalImpure=()=>{
-console.log(items.reduce((x, y)=> x +y.price, 0 ));
-};
+const getPriceById=(id)=>(item)=> item.find((item)=> item.id === id ).price;
 
-getTotalImpure();
+const getPrice = getPriceById('🍔'); 
 
-const totalPure=(v)=> v.reduce((x, y)=> x +y.price, 0);
-document.querySelector('#app').innerHTML= totalPure(items);
-
-console.log(totalPure(items));
+console.log(getPrice(items));
