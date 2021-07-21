@@ -4,5 +4,6 @@
     "prettier.singleQuote": true,
     "prettier.trailingComma": "all",
     "prettier.useTabs": true,
-    "prettier.vueIndentScriptAndStyle": true
+    "prettier.vueIndentScriptAndStyle": true,
+    "workbench.preferredHighContrastColorTheme": "Default Dark+"
 }

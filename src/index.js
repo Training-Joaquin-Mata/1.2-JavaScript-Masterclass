@@ -91,23 +91,46 @@ import '../assets/css/style.css';
 
 //-----------------------Lambda Expressions vs Anonymous Functions
 
+// const items = Object.freeze([
+//           { id: '🍔', name: 'Super Burger', price: 399 },
+//           { id: '🍟', name: 'Jumbo Fries', price: 199 },
+//           { id: '🥤', name: 'Big Slurp', price: 299 },
+//         ]);
+//         console.log(items);
+// //function declaration
+// function getItemName(item){
+//   return item.name;
+// }
+// console.log(items.map(getItemName));
+
+// //Anonymus function
+// console.log(items.map(function getItemName(item){
+//   return item.name;
+// }));
+
+// //Lambda Expression
+// const getNameExp= (item)=>item.name;
+// console.log(items.map(getNameExp));
+
+
+//-----------------------Pure Functions and Referential Transparency
 const items = Object.freeze([
-          { id: '🍔', name: 'Super Burger', price: 399 },
-          { id: '🍟', name: 'Jumbo Fries', price: 199 },
-          { id: '🥤', name: 'Big Slurp', price: 299 },
-        ]);
-        console.log(items);
-//function declaration
-function getItemName(item){
-  return item.name;
-}
-console.log(items.map(getItemName));
+  { id: '🍔', name: 'Super Burger', price: 399 },
+  { id: '🍟', name: 'Jumbo Fries', price: 199 },
+  { id: '🥤', name: 'Big Slurp', price: 299 },
+]);
+console.log(items);
 
-//Anonymus function
-console.log(items.map(function getItemName(item){
-  return item.name;
-}));
+//Pure Function 
+//1. Referencial transparency -A function only depends on its input (si ingresas la misma entrada, la salida no debe cambiar)
+//2. Side-effect free (console logs, reasign a variable, mutate an array or object, injecting things into the DOM)
+const  getTotalImpure=()=>{
+console.log(items.reduce((x, y)=> x +y.price, 0 ));
+};
 
-//Lambda Expression
-const getNameExp= (item)=>item.name;
-console.log(items.map(getNameExp));
+getTotalImpure();
+
+const totalPure=(v)=> v.reduce((x, y)=> x +y.price, 0);
+document.querySelector('#app').innerHTML= totalPure(items);
+
+console.log(totalPure(items));
