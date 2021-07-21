@@ -1,0 +1,8 @@
+{
+    "prettier.enableDebugLogs": true,
+    "prettier.endOfLine": "auto",
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "prettier.useTabs": true,
+    "prettier.vueIndentScriptAndStyle": true
+}
