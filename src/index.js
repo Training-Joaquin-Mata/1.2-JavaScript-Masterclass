@@ -152,26 +152,63 @@ import '../assets/css/style.css';
 // const getPrice = getPriceById('🍔'); 
 // console.log(getPrice(items));
 
-// //Con estas funciones puedes crear 'plantillas'  para enviarles distintos sets de informacion y poder realizar la misma funcion
+// //Esta funcion permite usar el elemento interno de una funcion como parametro para otra funcion
+// //En el caso de este ejemplo el parametro que usa dentro de la funcion closure es el id, pues lo usa en la funcion dentro de la primer función
 
 //-----------------------Higher-Order Functions
+// const items = Object.freeze([
+//   { id: '🍔', name: 'Super Burger', price: 399 },
+//   { id: '🍟', name: 'Jumbo Fries', price: 199 },
+//   { id: '🥤', name: 'Big Slurp', price: 299 },
+// ]);
+
+// // HOF 
+// // 1. Return a new function
+// // 2. Can take another function as arguments
+
+// const getNameFromId = (id)=> (item)=> item.find((item) => item.id === id).name;
+// const getFries = getNameFromId('🍟');
+// console.log(getFries(items));
+// console.log(items);
+
+
+// const getPriceById=(id)=>(item)=> item.find((item)=> item.id === id ).price;
+// const getPrice = getPriceById('🍔'); 
+// console.log(getPrice(items));
+
+
+//-----------------------Currying and Partial Application
+
 const items = Object.freeze([
   { id: '🍔', name: 'Super Burger', price: 399 },
   { id: '🍟', name: 'Jumbo Fries', price: 199 },
   { id: '🥤', name: 'Big Slurp', price: 299 },
 ]);
 
-// HOF 
-// 1. Return a new function
-// 2. Can take another function as arguments
 
-const getNameFromId = (id)=> (item)=> item.find((item) => item.id === id).name;
-const getFries = getNameFromId('🍟');
-console.log(getFries(items));
-console.log(items);
+const curry = (fn)=>{
+  return (...args)=>{
+    if(args.length>= fn.length){ 
+        return fn.apply(null, args);  
+    }
+    return fn.bind(null, ...args);
+  };  
+};
+
+const getNameFromId = curry((id, item)=> item.find((item) => item.id === id).name);
+
+// With the curryied you can pass an argument and pass the others later
+// you can pass the arguements separated in a functional way
+const getFries = getNameFromId('🍟')(items);
+console.log(getFries);
+
+// you can pass all the arguments like a 'normal' function
+const getBurger = getNameFromId('🍔',items); 
+console.log(getBurger);
+
+//You can pass just one argument and the other later
+const getSlurp = getNameFromId('🥤'); // partialy applying
+console.log(getSlurp(items));
 
 
-const getPriceById=(id)=>(item)=> item.find((item)=> item.id === id ).price;
-const getPrice = getPriceById('🍔'); 
-console.log(getPrice(items));
 
