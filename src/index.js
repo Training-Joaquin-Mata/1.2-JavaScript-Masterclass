@@ -179,12 +179,41 @@ import '../assets/css/style.css';
 
 //-----------------------Currying and Partial Application
 
-const items = Object.freeze([
-  { id: '🍔', name: 'Super Burger', price: 399 },
-  { id: '🍟', name: 'Jumbo Fries', price: 199 },
-  { id: '🥤', name: 'Big Slurp', price: 299 },
-]);
+// const items = Object.freeze([
+//   { id: '🍔', name: 'Super Burger', price: 399 },
+//   { id: '🍟', name: 'Jumbo Fries', price: 199 },
+//   { id: '🥤', name: 'Big Slurp', price: 299 },
+// ]);
 
+
+// const curry = (fn)=>{
+//   return (...args)=>{
+//     if(args.length>= fn.length){ 
+//         return fn.apply(null, args);  
+//     }
+//     return fn.bind(null, ...args);
+//   };  
+// };
+
+// const getNameFromId = curry((id, item)=> item.find((item) => item.id === id).name);
+
+// // With the curryied you can pass an argument and pass the others later
+// // you can pass the arguements separated in a functional way
+// const getFries = getNameFromId('🍟')(items);
+// console.log(getFries);
+
+// // you can pass all the arguments like a 'normal' function
+// const getBurger = getNameFromId('🍔',items); 
+// console.log(getBurger);
+
+// //You can pass just one argument and the other later
+// const getSlurp = getNameFromId('🥤'); // partialy applying
+// console.log(getSlurp(items));
+
+//<-----------------------Function Composition and Currying
+
+
+const compose = (...fns)=> (x)=> console.log(x)||fns.reduceRight((v, f)=>f(v), x);
 
 const curry = (fn)=>{
   return (...args)=>{
@@ -195,20 +224,25 @@ const curry = (fn)=>{
   };  
 };
 
-const getNameFromId = curry((id, item)=> item.find((item) => item.id === id).name);
+const split=curry((separator, string)=>string.split(separator));
+const join = curry((separator, string)=> string.join(separator));
+const map = curry((fn, array)=>array.map(fn));
+const toLowerCase = (x)=> x.toLowerCase();
+// const str = 'ultimate COURSES';
 
-// With the curryied you can pass an argument and pass the others later
-// you can pass the arguements separated in a functional way
-const getFries = getNameFromId('🍟')(items);
-console.log(getFries);
 
-// you can pass all the arguments like a 'normal' function
-const getBurger = getNameFromId('🍔',items); 
-console.log(getBurger);
+const slugify = compose(join('-'),map(toLowerCase),split(' '));
 
-//You can pass just one argument and the other later
-const getSlurp = getNameFromId('🥤'); // partialy applying
-console.log(getSlurp(items));
+console.log(slugify('Ubro apps'));
+
+// const splitText = split(' ')( 'Ubro Apps');
+// const mappedText = map((x)=> x.toLowerCase())(split(' ')( 'Ubro Apps'));
+// const joinedText = join('-')(map(toLowerCase)(split(' ')( str)));
+
+// console.log(joinedText);
+
+// const slugify = 'Ubro Apps'.split(' ').map((x)=> x.toLowerCase()).join('-');
+// console.log(slugify);
 
 
 
