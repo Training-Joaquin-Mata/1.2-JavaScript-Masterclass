@@ -213,7 +213,42 @@ import '../assets/css/style.css';
 //<-----------------------Function Composition and Currying
 
 
-const compose = (...fns)=> (x)=> console.log(x)||fns.reduceRight((v, f)=>f(v), x);
+// const compose = (...fns)=> (x)=> console.log(x)||fns.reduceRight((v, f)=>f(v), x);
+
+// const curry = (fn)=>{
+//   return (...args)=>{
+//     if(args.length>= fn.length){ 
+//         return fn.apply(null, args);  
+//     }
+//     return fn.bind(null, ...args);
+//   };  
+// };
+
+// const split=curry((separator, string)=>string.split(separator));
+// const join = curry((separator, string)=> string.join(separator));
+// const map = curry((fn, array)=>array.map(fn));
+// const toLowerCase = (x)=> x.toLowerCase();
+// // const str = 'ultimate COURSES';
+
+
+// const slugify = compose(join('-'),map(toLowerCase),split(' '));
+
+// console.log(slugify('Ubro apps'));
+
+// // const splitText = split(' ')( 'Ubro Apps');
+// // const mappedText = map((x)=> x.toLowerCase())(split(' ')( 'Ubro Apps'));
+// // const joinedText = join('-')(map(toLowerCase)(split(' ')( str)));
+
+// // console.log(joinedText);
+
+// // const slugify = 'Ubro Apps'.split(' ').map((x)=> x.toLowerCase()).join('-');
+// // console.log(slugify);
+
+
+
+//<-----------------------Function Pipes and Currying
+
+const pipe = (...fns)=> (x)=> fns.reduce((v, f)=>f(v), x);
 
 const curry = (fn)=>{
   return (...args)=>{
@@ -231,18 +266,10 @@ const toLowerCase = (x)=> x.toLowerCase();
 // const str = 'ultimate COURSES';
 
 
-const slugify = compose(join('-'),map(toLowerCase),split(' '));
+const slugify = pipe(
+  split(' '),
+  map(toLowerCase),
+  join('-'),
+    );
 
 console.log(slugify('Ubro apps'));
-
-// const splitText = split(' ')( 'Ubro Apps');
-// const mappedText = map((x)=> x.toLowerCase())(split(' ')( 'Ubro Apps'));
-// const joinedText = join('-')(map(toLowerCase)(split(' ')( str)));
-
-// console.log(joinedText);
-
-// const slugify = 'Ubro Apps'.split(' ').map((x)=> x.toLowerCase()).join('-');
-// console.log(slugify);
-
-
-
