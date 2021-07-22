@@ -136,19 +136,42 @@ import '../assets/css/style.css';
 // console.log(totalPure(items));
 
 //-----------------------Function Closures
+// const items = Object.freeze([
+//   { id: '🍔', name: 'Super Burger', price: 399 },
+//   { id: '🍟', name: 'Jumbo Fries', price: 199 },
+//   { id: '🥤', name: 'Big Slurp', price: 299 },
+// ]);
+
+// const getNameFromId = (id)=> (item)=> item.find((item) => item.id === id).name;
+// const getFries = getNameFromId('🍟');
+// console.log(getFries(items));
+// console.log(items);
+
+
+// const getPriceById=(id)=>(item)=> item.find((item)=> item.id === id ).price;
+// const getPrice = getPriceById('🍔'); 
+// console.log(getPrice(items));
+
+// //Con estas funciones puedes crear 'plantillas'  para enviarles distintos sets de informacion y poder realizar la misma funcion
+
+//-----------------------Higher-Order Functions
 const items = Object.freeze([
   { id: '🍔', name: 'Super Burger', price: 399 },
   { id: '🍟', name: 'Jumbo Fries', price: 199 },
   { id: '🥤', name: 'Big Slurp', price: 299 },
 ]);
 
+// HOF 
+// 1. Return a new function
+// 2. Can take another function as arguments
+
 const getNameFromId = (id)=> (item)=> item.find((item) => item.id === id).name;
 const getFries = getNameFromId('🍟');
 console.log(getFries(items));
 console.log(items);
 
+
 const getPriceById=(id)=>(item)=> item.find((item)=> item.id === id ).price;
-
 const getPrice = getPriceById('🍔'); 
-
 console.log(getPrice(items));
+
