@@ -193,28 +193,63 @@ import '../assets/css/style.css';
 
  // <--------------------------------------------------- Private and Static Class Members
 
+//  class Cart{
+//   static name= 'My Cart';
+//   //this hash make the items private, so you cant access from the dev tools, or some like that
+//   #items;
+//   constructor(items=[]){
+//     this.#items = Object.freeze(items);
+//   }
+//   add(item){
+//     const state= [...this.#items, item];
+//     this.#items = Object.freeze(state);
+//     }
+//   remove(id){
+//       const state = this.#items.filter((item)=> item.id!== id);
+//       this.#items = Object.freeze(state);
+//     }
+// }
+
+// const cart= new Cart();
+
+// const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
+
+// cart.add(hotDog);
+// console.log(cart);
+// console.log(cart instanceof Cart);
+// console.log(Cart.name);
+
+ // <--------------------------------------------------- Setters and Getters
+
  class Cart{
   static name= 'My Cart';
-  //this hash make the items private, so you cant access from the dev tools, or some like that
   #items;
   constructor(items=[]){
     this.#items = Object.freeze(items);
   }
+  set value(items){
+    this.#items = Object.freeze(items);
+  }
+  get value(){
+    return Object.freeze(this.#items);
+  }
+  get count(){
+    return this.value.length;
+  }
   add(item){
-    const state= [...this.#items, item];
-    this.#items = Object.freeze(state);
+    this.value = [...this.value, item];
     }
   remove(id){
-      const state = this.#items.filter((item)=> item.id!== id);
-      this.#items = Object.freeze(state);
+      this.value = this.value.filter((item)=> item.id!== id);
     }
 }
-
 const cart= new Cart();
-
 const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
 
 cart.add(hotDog);
-console.log(cart);
+console.log(cart.count);
+console.log(cart.value);
 console.log(cart instanceof Cart);
 console.log(Cart.name);
+cart.remove('🌭');
+console.log(cart.value);
