@@ -143,27 +143,50 @@ import '../assets/css/style.css';
 
 // <--------------------------------------------------- Constructor Functions and ‘new’
 
-function Cart(items=[]){
- this.items = Object.freeze(items)
-}
+// function Cart(items=[]){
+//  this.items = Object.freeze(items)
+// }
+// //Si lo haciamos de la manera anterior  cada que se creaba un objeto se creaban los metodos dentro de Cart, 
+// // al hacerlo con .prototype se crean solo una vez, es decir, si tenemos n objetos se van a crear solo una vez los metodos add y remove
 
-Cart.prototype.add=function (item){
-  const state= [...this.items, item];
-  this.items = Object.freeze(state);
-  };
-Cart.prototype.remove=function (id){
-    const state = this.items.filter((item)=> item.id!== id);
-    this.items = Object.freeze(state);
-  };
+// Cart.prototype.add=function (item){
+//   const state= [...this.items, item];
+//   this.items = Object.freeze(state);
+//   };
+// Cart.prototype.remove=function (id){
+//     const state = this.items.filter((item)=> item.id!== id);
+//     this.items = Object.freeze(state);
+//   };
 
+// const cart= new Cart();
 
+// const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
 
+// cart.add(hotDog);
+// console.log(cart);
+// console.log(cart instanceof Cart);
 
-const cart= new Cart();
+// <--------------------------------------------------- Classes and Members
 
-const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
+  class Cart{
+    items;
+    constructor(items=[]){
+      this.items = Object.freeze(items);
+    }
+    add(item){
+      const state= [...this.items, item];
+      this.items = Object.freeze(state);
+      }
+    remove(id){
+        const state = this.items.filter((item)=> item.id!== id);
+        this.items = Object.freeze(state);
+      }
+ }
 
-cart.add(hotDog);
-console.log(cart);
-console.log(cart instanceof Cart);
-
+ const cart= new Cart();
+ 
+ const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
+ 
+ cart.add(hotDog);
+ console.log(cart);
+ console.log(cart instanceof Cart);
