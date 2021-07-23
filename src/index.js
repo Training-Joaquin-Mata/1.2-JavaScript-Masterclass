@@ -106,36 +106,64 @@ import '../assets/css/style.css';
 
 // <--------------------------------------------------- Prototypes and .__proto__
 
-console.log({}.constructor);
-console.log({}.__proto__);
-console.log({} instanceof Object);
+// console.log({}.constructor);
+// console.log({}.__proto__);
+// console.log({} instanceof Object);
 
-console.log([].constructor);
-console.log([].__proto__);
-console.log([] instanceof Array, [] instanceof Object);
-console.log(Array.isArray([]));
+// console.log([].constructor);
+// console.log([].__proto__);
+// console.log([] instanceof Array, [] instanceof Object);
+// console.log(Array.isArray([]));
 
-const createCart=(items=[])=>({
+// const createCart=(items=[])=>({
   
-  items:Object.freeze(items),
-add(item){
+//   items:Object.freeze(items),
+// add(item){
+//   const state= [...this.items, item];
+//   this.items = Object.freeze(state);
+//   },
+// remove(id){
+//     const state = this.items.filter((item)=> item.id!== id);
+//     this.items = Object.freeze(state);
+//   }
+// });
+
+// const cart= createCart([]);
+
+// const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
+
+// cart.add(hotDog);
+// console.log(cart);
+
+// cart.remove('🌭');
+// console.log(cart);
+
+// console.log(Object.isFrozen(cart.items));
+
+
+// <--------------------------------------------------- Constructor Functions and ‘new’
+
+function Cart(items=[]){
+ this.items = Object.freeze(items)
+}
+
+Cart.prototype.add=function (item){
   const state= [...this.items, item];
   this.items = Object.freeze(state);
-  },
-remove(id){
+  };
+Cart.prototype.remove=function (id){
     const state = this.items.filter((item)=> item.id!== id);
     this.items = Object.freeze(state);
-  }
-});
+  };
 
-const cart= createCart([]);
+
+
+
+const cart= new Cart();
 
 const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
 
 cart.add(hotDog);
 console.log(cart);
+console.log(cart instanceof Cart);
 
-cart.remove('🌭');
-console.log(cart);
-
-console.log(Object.isFrozen(cart.items));
