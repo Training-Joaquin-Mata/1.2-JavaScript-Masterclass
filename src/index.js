@@ -248,28 +248,39 @@ import '../assets/css/style.css';
 
 //<-----------------------Function Pipes and Currying
 
-const pipe = (...fns)=> (x)=> fns.reduce((v, f)=>f(v), x);
+// const pipe = (...fns)=> (x)=> fns.reduce((v, f)=>f(v), x);
 
-const curry = (fn)=>{
-  return (...args)=>{
-    if(args.length>= fn.length){ 
-        return fn.apply(null, args);  
-    }
-    return fn.bind(null, ...args);
-  };  
+// const curry = (fn)=>{
+//   return (...args)=>{
+//     if(args.length>= fn.length){ 
+//         return fn.apply(null, args);  
+//     }
+//     return fn.bind(null, ...args);
+//   };  
+// };
+
+// const split=curry((separator, string)=>string.split(separator));
+// const join = curry((separator, string)=> string.join(separator));
+// const map = curry((fn, array)=>array.map(fn));
+// const toLowerCase = (x)=> x.toLowerCase();
+
+// const slugify = pipe(split(' '),map(toLowerCase),join('-'));
+
+// console.log(slugify('Ubro apps'));
+
+//<-----------------------Recursion
+
+const factorial = (n) =>{
+ let result = 1;
+ for(let count = n; count > 1; count -- ){
+    result= result * count;
+ }
+return result;
 };
 
-const split=curry((separator, string)=>string.split(separator));
-const join = curry((separator, string)=> string.join(separator));
-const map = curry((fn, array)=>array.map(fn));
-const toLowerCase = (x)=> x.toLowerCase();
-// const str = 'ultimate COURSES';
+console.log(factorial(5));
 
 
-const slugify = pipe(
-  split(' '),
-  map(toLowerCase),
-  join('-'),
-    );
+const newFactorial=(n)=> n>1?  n * factorial(n-1) :1;
 
-console.log(slugify('Ubro apps'));
+console.log(newFactorial(5)); 
