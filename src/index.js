@@ -27,11 +27,11 @@ import '../assets/css/style.css';
 // const cart ={
 //   items:[],
 //   add(item){
-//     this.items.push(item);
+//     this.#items.push(item);
 //     },
 //   remove(id){
-//       const index = this.items.findIndex((x) => x.id===id);
-//       this.items.splice(index, 1);
+//       const index = this.#items.findIndex((x) => x.id===id);
+//       this.#items.splice(index, 1);
 //     },
   
 // };
@@ -53,11 +53,11 @@ import '../assets/css/style.css';
   
 //     items,
 //   add(item){
-//     this.items.push(item);
+//     this.#items.push(item);
 //     },
 //   remove(id){
-//       const index = this.items.findIndex((x) => x.id===id);
-//       this.items.splice(index, 1);
+//       const index = this.#items.findIndex((x) => x.id===id);
+//       this.#items.splice(index, 1);
 //     }
 // });
 
@@ -82,12 +82,12 @@ import '../assets/css/style.css';
   
 //     items:Object.freeze(items),
 //   add(item){
-//     const state= [...this.items, item];
-//     this.items = Object.freeze(state);
+//     const state= [...this.#items, item];
+//     this.#items = Object.freeze(state);
 //     },
 //   remove(id){
-//       const state = this.items.filter((item)=> item.id!== id);
-//       this.items = Object.freeze(state);
+//       const state = this.#items.filter((item)=> item.id!== id);
+//       this.#items = Object.freeze(state);
 //     }
 // });
 
@@ -119,12 +119,12 @@ import '../assets/css/style.css';
   
 //   items:Object.freeze(items),
 // add(item){
-//   const state= [...this.items, item];
-//   this.items = Object.freeze(state);
+//   const state= [...this.#items, item];
+//   this.#items = Object.freeze(state);
 //   },
 // remove(id){
-//     const state = this.items.filter((item)=> item.id!== id);
-//     this.items = Object.freeze(state);
+//     const state = this.#items.filter((item)=> item.id!== id);
+//     this.#items = Object.freeze(state);
 //   }
 // });
 
@@ -144,18 +144,18 @@ import '../assets/css/style.css';
 // <--------------------------------------------------- Constructor Functions and ‘new’
 
 // function Cart(items=[]){
-//  this.items = Object.freeze(items)
+//  this.#items = Object.freeze(items)
 // }
 // //Si lo haciamos de la manera anterior  cada que se creaba un objeto se creaban los metodos dentro de Cart, 
 // // al hacerlo con .prototype se crean solo una vez, es decir, si tenemos n objetos se van a crear solo una vez los metodos add y remove
 
 // Cart.prototype.add=function (item){
-//   const state= [...this.items, item];
-//   this.items = Object.freeze(state);
+//   const state= [...this.#items, item];
+//   this.#items = Object.freeze(state);
 //   };
 // Cart.prototype.remove=function (id){
-//     const state = this.items.filter((item)=> item.id!== id);
-//     this.items = Object.freeze(state);
+//     const state = this.#items.filter((item)=> item.id!== id);
+//     this.#items = Object.freeze(state);
 //   };
 
 // const cart= new Cart();
@@ -168,25 +168,53 @@ import '../assets/css/style.css';
 
 // <--------------------------------------------------- Classes and Members
 
-  class Cart{
-    items;
-    constructor(items=[]){
-      this.items = Object.freeze(items);
-    }
-    add(item){
-      const state= [...this.items, item];
-      this.items = Object.freeze(state);
-      }
-    remove(id){
-        const state = this.items.filter((item)=> item.id!== id);
-        this.items = Object.freeze(state);
-      }
- }
+//   class Cart{
+//     items;
+//     constructor(items=[]){
+//       this.#items = Object.freeze(items);
+//     }
+//     add(item){
+//       const state= [...this.#items, item];
+//       this.#items = Object.freeze(state);
+//       }
+//     remove(id){
+//         const state = this.#items.filter((item)=> item.id!== id);
+//         this.#items = Object.freeze(state);
+//       }
+//  }
 
- const cart= new Cart();
+//  const cart= new Cart();
  
- const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
+//  const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
  
- cart.add(hotDog);
- console.log(cart);
- console.log(cart instanceof Cart);
+//  cart.add(hotDog);
+//  console.log(cart);
+//  console.log(cart instanceof Cart);
+
+ // <--------------------------------------------------- Private and Static Class Members
+
+ class Cart{
+  static name= 'My Cart';
+  //this hash make the items private, so you cant access from the dev tools, or some like that
+  #items;
+  constructor(items=[]){
+    this.#items = Object.freeze(items);
+  }
+  add(item){
+    const state= [...this.#items, item];
+    this.#items = Object.freeze(state);
+    }
+  remove(id){
+      const state = this.#items.filter((item)=> item.id!== id);
+      this.#items = Object.freeze(state);
+    }
+}
+
+const cart= new Cart();
+
+const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
+
+cart.add(hotDog);
+console.log(cart);
+console.log(cart instanceof Cart);
+console.log(Cart.name);
