@@ -270,17 +270,45 @@ import '../assets/css/style.css';
 
 //<-----------------------Recursion
 
-const factorial = (n) =>{
- let result = 1;
- for(let count = n; count > 1; count -- ){
-    result= result * count;
- }
-return result;
+// const factorial = (n) =>{
+//  let result = 1;
+//  for(let count = n; count > 1; count -- ){
+//     result= result * count;
+//  }
+// return result;
+// };
+
+// console.log(factorial(5));
+
+
+// const newFactorial=(n)=> n>1 ?  n * factorial(n-1) :  1;
+
+// console.log(newFactorial(5)); 
+
+//<----------------------- Memoization
+
+
+
+const factorial=(n)=> n>1 ?  n * factorial(n-1) :  1;
+
+const memoize=(fn)=>{
+  const cache={};
+  return(...args)=>{
+
+    const key = JSON.stringify(args);
+    if(key in cache){
+      console.log("Getting from cache...");
+      return cache[key];
+    }
+    console.log('Caching...');
+    return cache[key]=fn.apply(null, args);
+  };
+
 };
 
-console.log(factorial(5));
+const memoizedFactorial = memoize(factorial);  
 
-
-const newFactorial=(n)=> n>1?  n * factorial(n-1) :1;
-
-console.log(newFactorial(5)); 
+console.log(factorial(9));
+console.log(memoizedFactorial(9));
+console.log(memoizedFactorial(9));
+console.log(memoizedFactorial(6));
