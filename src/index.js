@@ -49,15 +49,45 @@ import '../assets/css/style.css';
 
 // <--------------------------------------------------- Object Literals and Factory Functions
 
+// const createCart=(items=[])=>({
+  
+//     items,
+//   add(item){
+//     this.items.push(item);
+//     },
+//   remove(id){
+//       const index = this.items.findIndex((x) => x.id===id);
+//       this.items.splice(index, 1);
+//     }
+// });
+
+// const cart= createCart([]);
+
+// const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
+
+// cart.add(hotDog);
+// console.log(cart);
+
+
+// setTimeout(()=>{
+//   cart.remove('🌭');
+//   console.log(cart);
+// }, 2500);
+
+
+
+// <--------------------------------------------------- Frozen State and Immutable Patterns
+
 const createCart=(items=[])=>({
   
-    items,
+    items:Object.freeze(items),
   add(item){
-    this.items.push(item);
+    const state= [...this.items, item];
+    this.items = Object.freeze(state);
     },
   remove(id){
-      const index = this.items.findIndex((x) => x.id===id);
-      this.items.splice(index, 1);
+      const state = this.items.filter((item)=> item.id!== id);
+      this.items = Object.freeze(state);
     }
 });
 
@@ -68,8 +98,9 @@ const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
 cart.add(hotDog);
 console.log(cart);
 
+cart.remove('🌭');
+console.log(cart);
 
-setTimeout(()=>{
-  cart.remove('🌭');
-  console.log(cart);
-}, 2500);
+console.log(Object.isFrozen(cart.items));
+
+
