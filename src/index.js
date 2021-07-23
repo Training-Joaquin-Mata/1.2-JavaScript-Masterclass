@@ -221,6 +221,42 @@ import '../assets/css/style.css';
 
  // <--------------------------------------------------- Setters and Getters
 
+//  class Cart{
+//   static name= 'My Cart';
+//   #items;
+//   constructor(items=[]){
+//     this.#items = Object.freeze(items);
+//   }
+//   set value(items){
+//     this.#items = Object.freeze(items);
+//   }
+//   get value(){
+//     return Object.freeze(this.#items);
+//   }
+//   get count(){
+//     return this.value.length;
+//   }
+//   add(item){
+//     this.value = [...this.value, item];
+//     }
+//   remove(id){
+//       this.value = this.value.filter((item)=> item.id!== id);
+//     }
+// }
+// const cart= new Cart();
+// const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
+
+// cart.add(hotDog);
+// console.log(cart.count);
+// console.log(cart.value);
+// console.log(cart instanceof Cart);
+// console.log(Cart.name);
+// cart.remove('🌭');
+// console.log(cart.value);
+
+
+ // <--------------------------------------------------- Class Inheritance via ‘extends’
+
  class Cart{
   static name= 'My Cart';
   #items;
@@ -244,12 +280,52 @@ import '../assets/css/style.css';
     }
 }
 const cart= new Cart();
-const hotDog = {id:'🌭', name:'Posh Dog', price: 399};
+
+class Product{
+  id;
+  name;
+  price;
+  constructor(id, name, price){
+    this.id=id;
+    this.name= name;
+    this.price = price;
+  }
+
+  get displayName(){
+    return `${this.id} ${this.name}`;
+  }
+
+}
+
+
+class Food extends Product{
+  extras;
+  constructor(id, name, price,extras=[]){
+    //la instruccion super invoca la clase a la que se hace el extends
+    super(id, name, price);
+    this.extras= extras;
+  }
+}
+
+class Drink extends Product{
+  size;
+  constructor(id, name, price,size){
+    super(id, name, price);
+    this.size= size;
+  }
+}
+const hotDog = new Food('🌭', 'Posh Dog' , 399, ['mustard']);
+const burrito = new Food('🌯', 'Super burrito' , 449, ['cheese', 'onion']);
+
+const smallDrink = new Drink('🥤' , 'Big Slurp' , 199, 'small');
+const mediumDrink = new Drink('🥤' , 'Big Slurp' , 199, 'medium');
+const largeDrink = new Drink('🥤' , 'Big Slurp' , 199, 'large');
 
 cart.add(hotDog);
-console.log(cart.count);
+cart.add(burrito);
+cart.add(smallDrink);
+cart.add(mediumDrink);
+cart.add(largeDrink);
 console.log(cart.value);
-console.log(cart instanceof Cart);
-console.log(Cart.name);
-cart.remove('🌭');
-console.log(cart.value);
+console.log(hotDog.displayName);
+
